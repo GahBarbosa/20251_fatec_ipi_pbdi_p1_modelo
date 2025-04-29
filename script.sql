@@ -14,7 +14,22 @@ PREP_EXAM INT
 -- ----------------------------------------------------------------
 -- 2 Resultado em função da formação dos pais
 --escreva a sua solução aqui
+DO $$
+DECLARE
+    ref REfCURSOR;
+    counter INT;
+BEGIN
+    OPEN ref FOR
+        SELECT count(id) as counter
+        FROM  students
+        WHERE (father_edu = 6 OR mother_edu = 6)
+           AND grade >= 3;
+    FETCH ref into counter;
+    RAISE NOTICE '%', counter;
+    
 
+    CLOSE ref;
+END $$;
 
 -- ----------------------------------------------------------------
 -- 3 Resultado em função dos estudos
