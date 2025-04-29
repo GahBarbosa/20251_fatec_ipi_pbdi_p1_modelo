@@ -78,5 +78,45 @@ END $$;
 -- ----------------------------------------------------------------
 -- 5. Limpeza de valores NULL
 --escreva a sua solução aqui
+DO $$
+DECLARE
+    ref_dele refcursor;
+    ref_read refcursor;
+    tupla RECORD;
+BEGIN
+    OPEN ref_read FOR
+        SELECT *
+        FROM  students;
 
+    FETCH ref_read INTO tupla;
+
+    WHILE FOUND LOOP
+        IF tupla.mother_edu IS NULL
+        OR tupla.father_edu IS NULL
+        OR tupla.grade IS NULL
+        OR tupla.salary IS NULL
+        OR tupla.prep_exam IS NULL
+        OR tupla.prep_study IS NULL THEN
+            RAISE NOTICE 'Deletendo a linha: %', tupla;
+            DELETE FROM students WHERE id = tupla.id; 
+        END IF;
+        FETCH ref_read INTO tupla;
+        EXIT WHEN NOT FOUND;
+    END LOOP;
+
+    CLOSE ref_read;
+
+    OPEN ref_read SCROLL FOR
+        SELECT *
+        FROM  students;
+
+    FETCH LAST FROM ref_read INTO tupla;
+
+    WHILE FOUND LOOP
+        RAISE NOTICE '%', tupla;
+        FETCH PRIOR FROM ref_read INTO tupla;
+    END LOOP;
+
+    CLOSE ref_read;
+END $$;
 -- ----------------------------------------------------------------
