@@ -35,7 +35,26 @@ END $$;
 -- 3 Resultado em função dos estudos
 --escreva a sua solução aqui
 
+DO $$
+DECLARE
+    ref refcursor;
+   	counter INT;
+BEGIN
+    OPEN ref FOR
+        SELECT count(id) as counter
+        FROM  students
+        WHERE prep_study = 1
+          AND grade >= 3; 
+    FETCH ref into counter;
 
+    IF counter = 0 THEN
+        RAISE NOTICE '-1';
+    ELSE
+        RAISE NOTICE '%', counter;
+    END IF;
+
+    CLOSE ref;
+END $$;
 -- ----------------------------------------------------------------
 -- 4 Salário versus estudos
 --escreva a sua solução aqui
