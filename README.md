@@ -8,8 +8,8 @@
 
 | Nome completo | RA |
 |:--------------|:---|
-|                |     |
-|                |     |
+|GABRIEL BARBOSA DE ARAUJO |2041382511018|
+|Victor Blanco de Andrade |2041382211012|
 |                |     |
 |                |     |
 |                |     |
