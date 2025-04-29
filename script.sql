@@ -58,7 +58,23 @@ END $$;
 -- ----------------------------------------------------------------
 -- 4 Salário versus estudos
 --escreva a sua solução aqui
+DO $$
+DECLARE
+    cur CURSOR FOR
+        SELECT count(id) as counter
+        FROM  students
+        WHERE salary = 5
+          AND prep_exam = 2;
+   	counter INT;
+BEGIN
+    OPEN cur;
 
+    FETCH cur into counter;
+
+    RAISE NOTICE '%', counter;
+
+    CLOSE cur;
+END $$;
 -- ----------------------------------------------------------------
 -- 5. Limpeza de valores NULL
 --escreva a sua solução aqui
